@@ -26,19 +26,19 @@ public class ServermanagerApplication {
 			serverRepository.save(Server.builder()
 							.id(null).ipAddress("192.168.1.160")
 							.name("Ubuntu Linux").memory("16 GB").type("Personal PC")
-							.imageUrl("http://localhost:8080/server/image/server1.png")
+							.imageUrl("http://localhost:8080/server/image/server.png")
 							.status(Status.SERVER_DOWN).build());
 
 			serverRepository.save(Server.builder()
 					.id(null).ipAddress("192.168.1.58")
 					.name("Fedora Linux").memory("16 GB").type("Dell Tower")
-					.imageUrl("http://localhost:8080/server/image/server2.png")
+					.imageUrl("http://localhost:8080/server/image/server.png")
 					.status(Status.SERVER_DOWN).build());
 
 			serverRepository.save(Server.builder()
 					.id(null).ipAddress("192.168.1.21")
 					.name("MS 2008").memory("32 GB").type("Web Server")
-					.imageUrl("http://localhost:8080/server/image/server3.png")
+					.imageUrl("http://localhost:8080/server/image/server.png")
 					.status(Status.SERVER_DOWN).build());
 		};
 	}
