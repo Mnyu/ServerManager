@@ -42,7 +42,8 @@ public class ServerController {
     }
 
     @GetMapping("/list")
-    public ResponseEntity<Response> getServers() {
+    public ResponseEntity<Response> getServers() throws InterruptedException {
+        Thread.sleep(1000); // Deliberate delay to check UI
         Map<String, Collection<Server>> map = new HashMap<>();
         map.put("servers", serverService.list(30));
         return ResponseEntity.ok(Response.builder()
