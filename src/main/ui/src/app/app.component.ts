@@ -7,6 +7,7 @@ import {DataState} from "./enum/data-state.enum";
 import {Status} from "./enum/status.enum";
 import {NgForm} from "@angular/forms";
 import {Server} from "./interface/server";
+import {NotificationService} from "./service/notification.service";
 
 @Component({
   selector: 'app-root',
@@ -27,17 +28,20 @@ export class AppComponent implements OnInit {
 
   private dataSubject = new BehaviorSubject<CustomResponse>(null);
 
-  constructor(private serverService: ServerService) {}
+  constructor(private serverService: ServerService,
+              private notifier: NotificationService) {}
 
   ngOnInit(): void {
     this.appState$ = this.serverService.servers$
       .pipe(
         map(response => {
+          this.notifier.onDefault(response.message);
           this.dataSubject.next(response);
           return { dataState: DataState.LOADED_STATE, appData: response}
         }),
         startWith({ dataState: DataState.LOADING_STATE }),
         catchError((errorMsg: string) => {
+          this.notifier.onError(errorMsg);
           return of({dataState: DataState.ERROR_STATE, error: errorMsg});
         })
       );
@@ -51,10 +55,12 @@ export class AppComponent implements OnInit {
           const index = this.dataSubject.value.data.servers.findIndex(server => server.id === response.data.server.id)
           this.dataSubject.value.data.servers[index] = response.data.server;
           this.filterSubject.next('');
+          this.notifier.onDefault(response.message);
           return { dataState: DataState.LOADED_STATE, appData: this.dataSubject.value};
         }),
         startWith({ dataState: DataState.LOADED_STATE, appData: this.dataSubject.value }),
         catchError((errorMsg: string) => {
+          this.notifier.onError(errorMsg);
           this.filterSubject.next('');
           return of({dataState: DataState.ERROR_STATE, error: errorMsg});
         })
@@ -65,10 +71,12 @@ export class AppComponent implements OnInit {
     this.appState$ = this.serverService.filter$(status, this.dataSubject.value)
       .pipe(
         map(response => {
+          this.notifier.onDefault(response.message);
           return { dataState: DataState.LOADED_STATE, appData: response};
         }),
         startWith({ dataState: DataState.LOADED_STATE, appData: this.dataSubject.value }),
         catchError((errorMsg: string) => {
+          this.notifier.onError(errorMsg);
           return of({dataState: DataState.ERROR_STATE, error: errorMsg});
         })
       );
@@ -80,6 +88,7 @@ export class AppComponent implements OnInit {
       .pipe(
         map(response => {
           this.dataSubject.next({...response, data:{ servers: [...this.dataSubject.value.data.servers, response.data.server] }});
+          this.notifier.onDefault(response.message);
           document.getElementById('closeModal').click();
           this.isLoading.next(false);
           serverForm.resetForm({ status : this.Status.SERVER_DOWN });
@@ -87,6 +96,7 @@ export class AppComponent implements OnInit {
         }),
         startWith({ dataState: DataState.LOADED_STATE, appData: this.dataSubject.value }),
         catchError((errorMsg: string) => {
+          this.notifier.onError(errorMsg);
           this.isLoading.next(false);
           return of({dataState: DataState.ERROR_STATE, error: errorMsg});
         })
@@ -101,16 +111,19 @@ export class AppComponent implements OnInit {
       { ...response,
               data: {servers: this.dataSubject.value.data.servers.filter(serv => serv.id !== server.id)}
             });
+          this.notifier.onDefault(response.message);
           return { dataState: DataState.LOADED_STATE, appData: this.dataSubject.value};
         }),
         startWith({ dataState: DataState.LOADED_STATE, appData: this.dataSubject.value }),
         catchError((errorMsg: string) => {
+          this.notifier.onError(errorMsg);
           return of({dataState: DataState.ERROR_STATE, error: errorMsg});
         })
       );
   }
 
   printReport(): void {
+    this.notifier.onDefault('Report downloaded');
     // window.print(); // For pdf
     let dataType = 'application/vnd.ms-excel.sheet.macroEnabled.12';
     let tableSelect = document.getElementById('servers');
