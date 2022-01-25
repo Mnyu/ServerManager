@@ -54,7 +54,7 @@ subscriber => {
         catchError(this.handleError)
       );
 
-  delete$ = (serverId: string) => <Observable<CustomResponse>>
+  delete$ = (serverId: number) => <Observable<CustomResponse>>
     this.http.delete<CustomResponse>(`${this.apiUrl}/server/delete/${serverId}`)
     .pipe(
       tap(console.log),

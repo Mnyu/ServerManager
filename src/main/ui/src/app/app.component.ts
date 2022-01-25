@@ -92,4 +92,21 @@ export class AppComponent implements OnInit {
         })
       );
   }
+
+  deleteServer(server: Server): void {
+    this.appState$ = this.serverService.delete$(server.id)
+      .pipe(
+        map(response => {
+          this.dataSubject.next(
+      { ...response,
+              data: {servers: this.dataSubject.value.data.servers.filter(serv => serv.id !== server.id)}
+            });
+          return { dataState: DataState.LOADED_STATE, appData: this.dataSubject.value};
+        }),
+        startWith({ dataState: DataState.LOADED_STATE, appData: this.dataSubject.value }),
+        catchError((errorMsg: string) => {
+          return of({dataState: DataState.ERROR_STATE, error: errorMsg});
+        })
+      );
+  }
 }
