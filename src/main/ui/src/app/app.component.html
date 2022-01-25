@@ -8,14 +8,11 @@
             <h2>Manage Servers</h2>
           </div>
           <div class="col-sm-6">
-            <!--            <button (click)="printReport()" type="button" class="btn btn-primary">Print Report</button>-->
-            <button type="button" class="btn btn-primary">Print Report</button>
-
+            <button (click)="printReport()" type="button" class="btn btn-primary">Print Report</button>
             <a href="#addEmployeeModal" class="btn btn-success" data-toggle="modal">
               <i class="material-icons">&#xE147;</i>
               <span>New Server</span>
             </a>
-
             <span>
               <select (ngModelChange)="filterServers($event)" ngModel="ALL" name="status"
                       class="btn btn-info" style="height: 32.91px;">
