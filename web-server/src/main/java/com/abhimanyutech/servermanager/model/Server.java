@@ -20,8 +20,8 @@ import javax.validation.constraints.NotEmpty;
 @Entity
 public class Server {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int id;
 
     @Column(unique = true)
     @NotEmpty(message = "IP Address cannot be empty or null")
