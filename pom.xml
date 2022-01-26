@@ -5,6 +5,7 @@
 	<packaging>pom</packaging>
 	<modules>
 		<module>web-server</module>
+		<module>web-ui</module>
 	</modules>
 	<groupId>com.abhimanyutech</groupId>
 	<artifactId>servermanager</artifactId>
@@ -20,6 +21,11 @@
 			<dependency>
 				<groupId>com.abhimanyutech</groupId>
 				<artifactId>web-server</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.abhimanyutech</groupId>
+				<artifactId>web-ui</artifactId>
 				<version>${project.version}</version>
 			</dependency>
 		</dependencies>
