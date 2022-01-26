@@ -6,6 +6,7 @@
 	<modules>
 		<module>web-server</module>
 		<module>web-ui</module>
+		<module>web-server-distribution</module>
 	</modules>
 	<groupId>com.abhimanyutech</groupId>
 	<artifactId>servermanager</artifactId>
@@ -27,6 +28,11 @@
 			<dependency>
 				<groupId>com.abhimanyutech</groupId>
 				<artifactId>web-ui</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.abhimanyutech</groupId>
+				<artifactId>web-server-distribution</artifactId>
 				<version>${project.version}</version>
 			</dependency>
 		</dependencies>
