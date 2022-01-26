@@ -10,7 +10,7 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>web-server-distribution</artifactId>
+    <artifactId>servermanager-distribution</artifactId>
     <packaging>pom</packaging>
 
     <properties>
@@ -21,7 +21,9 @@
     <dependencies>
         <dependency>
             <groupId>com.abhimanyutech</groupId>
-            <artifactId>web-server</artifactId>
+            <artifactId>web-server-distribution</artifactId>
+            <version>${project.version}</version>
+            <type>pom</type>
         </dependency>
     </dependencies>
 

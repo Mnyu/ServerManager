@@ -3,16 +3,20 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<packaging>pom</packaging>
+
 	<modules>
 		<module>web-server</module>
 		<module>web-ui</module>
 		<module>web-server-distribution</module>
+		<module>servermanager-distribution</module>
 	</modules>
+
 	<groupId>com.abhimanyutech</groupId>
 	<artifactId>servermanager</artifactId>
 	<version>0.0.1</version>
 	<name>servermanager</name>
 	<description>Server Manager Application</description>
+
 	<properties>
 		<java.version>1.8</java.version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -33,6 +37,11 @@
 			<dependency>
 				<groupId>com.abhimanyutech</groupId>
 				<artifactId>web-server-distribution</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.abhimanyutech</groupId>
+				<artifactId>servermanager-distribution</artifactId>
 				<version>${project.version}</version>
 			</dependency>
 		</dependencies>
