@@ -1,7 +1,7 @@
 package com.abhimanyutech.servermanager.controller;
 
-import com.abhimanyutech.servermanager.enums.Status;
 import com.abhimanyutech.servermanager.model.Response;
+import com.abhimanyutech.servermanager.enums.Status;
 import com.abhimanyutech.servermanager.model.Server;
 import com.abhimanyutech.servermanager.service.ServerService;
 import org.springframework.beans.factory.annotation.Autowired;

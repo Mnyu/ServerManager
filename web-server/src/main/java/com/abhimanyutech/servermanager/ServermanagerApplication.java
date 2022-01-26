@@ -1,8 +1,8 @@
 package com.abhimanyutech.servermanager;
 
 import com.abhimanyutech.servermanager.enums.Status;
-import com.abhimanyutech.servermanager.model.Server;
 import com.abhimanyutech.servermanager.repository.ServerRepository;
+import com.abhimanyutech.servermanager.model.Server;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
