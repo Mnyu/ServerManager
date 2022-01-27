@@ -7,26 +7,26 @@ import {Status} from "../enum/status.enum";
 
 @Injectable({ providedIn: 'root' })
 export class ServerService {
-  private readonly apiUrl = 'http://localhost:8080';
+  //private readonly apiUrl = 'http://localhost:8080';
 
   constructor(private http: HttpClient) { }
 
   servers$ = <Observable<CustomResponse>>
-    this.http.get<CustomResponse>(`${this.apiUrl}/server/list`)
+    this.http.get<CustomResponse>(`/api/server/list`)
     .pipe(
       tap(console.log),
       catchError(this.handleError)
     );
 
   save$ = (server: Server) => <Observable<CustomResponse>>
-    this.http.post<CustomResponse>(`${this.apiUrl}/server/save`, server)
+    this.http.post<CustomResponse>(`/api/server/save`, server)
     .pipe(
       tap(console.log),
       catchError(this.handleError)
     );
 
   ping$ = (ipAddress: string) => <Observable<CustomResponse>>
-    this.http.get<CustomResponse>(`${this.apiUrl}/server/ping/${ipAddress}`)
+    this.http.get<CustomResponse>(`/api/server/ping/${ipAddress}`)
     .pipe(
       tap(console.log),
       catchError(this.handleError)
@@ -55,7 +55,7 @@ subscriber => {
       );
 
   delete$ = (serverId: number) => <Observable<CustomResponse>>
-    this.http.delete<CustomResponse>(`${this.apiUrl}/server/delete/${serverId}`)
+    this.http.delete<CustomResponse>(`/api/server/delete/${serverId}`)
     .pipe(
       tap(console.log),
       catchError(this.handleError)
