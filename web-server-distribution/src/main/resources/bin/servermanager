@@ -1,1 +1,87 @@
 #!/usr/bin/env bash
+
+set -Eeuo pipefail
+
+THIS_DIR=$(cd "$(dirname "$0")" && pwd)
+HOME_DIR=$(dirname "${THIS_DIR}")
+CONF_DIR="${HOME_DIR}"/conf
+LIB_DIR="${HOME_DIR}"/lib
+
+DEBUG_SUSPEND=n
+DEBUG_OPTS=
+DEBUG_ON=false
+
+# To be read from install.properties
+APP_VERSION=${APP_VERSION:=0.0.1}
+
+source "${CONF_DIR}"/install.properties
+
+COMMAND_RUN_SERVER="run-server"
+
+printUsage() {
+  local executable
+  executable=$(basename "$0")
+  printf '\nUsage: %s [options] [command]' "${executable}"
+  printf '\n'
+  printf '\nCommands:'
+  printf '\n\t %-25s %-25s' "run-server" "Start the web-server."
+  printf '\n'
+  printf '\nOptions:'
+  printf '\n\t %-25s %-25s' "-h, --help" "Display this usage help"
+  printf '\n\t %-25s %-25s' "--debug" "Enable debug mode in Java"
+  printf '\n\t %-25s %-25s' "--suspend" "Use with --debug option, suspend the JVM until a debugger is attached"
+  printf '\n\t %-25s %-25s' "--debug-bash" "Enable debug output in bash"
+  printf '\n\n'
+}
+
+
+run_server() {
+  java ${DEBUG_OPTS} -cp "$CONF_DIR":"${LIB_DIR}"/web-server-"${APP_VERSION}".jar \
+    -Dloader.main=com.abhimanyutech.servermanager.ServermanagerApplication \
+    org.springframework.boot.loader.PropertiesLauncher
+}
+
+parseArgs() {
+  while [[ $# -ge 1 ]]; do
+    local arg="$1"
+    case $arg in
+      --debug-bash)
+        set -x
+        ;;
+      --debug)
+        DEBUG_ON=true
+        ;;
+      --suspend)
+        DEBUG_SUSPEND=y
+        ;;
+      run-server)
+        COMMAND=${COMMAND_RUN_SERVER}
+        ;;
+      -h | --help)
+        printUsage
+        exit 0
+        ;;
+      *)
+        echo "Unknown command or option $arg" >&2
+        printUsage
+        exit 0
+        ;;
+      esac
+    shift
+  done
+}
+
+main() {
+  if [[ ${DEBUG_ON} = true ]]; then
+    DEBUG_OPTS="-agentlib:jdwp=transport=dt_socket,server=y,suspend=${DEBUG_SUSPEND},address=5005"
+  fi
+
+  if [[ "$COMMAND" == "${COMMAND_RUN_SERVER}" ]]; then
+      run_server
+  else
+    printUsage
+  fi
+}
+
+parseArgs "$@"
+main
