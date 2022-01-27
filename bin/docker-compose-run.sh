@@ -28,12 +28,12 @@ printUsage() {
 
 main() {
   if [[ "$COMMAND" == "$COMMAND_UP" ]];then
-    docker-compose --env-file "$THIS_DIR"/../servermanager-distribution/target/servermanager-distribution-0.1.0/docker-compose/.env -f "$THIS_DIR"/../servermanager-distribution/target/servermanager-distribution-0.1.0/docker-compose/docker-compose.yml up -d
+    docker-compose --env-file "$THIS_DIR"/../servermanager-distribution/target/servermanager-distribution-0.0.1/docker-compose/.env -f "$THIS_DIR"/../servermanager-distribution/target/servermanager-distribution-0.0.1/docker-compose/docker-compose.yml up -d
   elif [[ "$COMMAND" == "$COMMAND_DOWN" ]]; then
     if [[ -z "$REMOVE_VOLUMES_ARG" ]]; then
-      docker-compose --env-file "$THIS_DIR"/../servermanager-distribution/target/servermanager-distribution-0.1.0/docker-compose/.env -f "$THIS_DIR"/../servermanager-distribution/target/servermanager-distribution-0.1.0/docker-compose/docker-compose.yml down
+      docker-compose --env-file "$THIS_DIR"/../servermanager-distribution/target/servermanager-distribution-0.0.1/docker-compose/.env -f "$THIS_DIR"/../servermanager-distribution/target/servermanager-distribution-0.0.1/docker-compose/docker-compose.yml down
     else
-      docker-compose --env-file "$THIS_DIR"/../servermanager-distribution/target/servermanager-distribution-0.1.0/docker-compose/.env -f "$THIS_DIR"/../servermanager-distribution/target/servermanager-distribution-0.1.0/docker-compose/docker-compose.yml down "$REMOVE_VOLUMES_ARG"
+      docker-compose --env-file "$THIS_DIR"/../servermanager-distribution/target/servermanager-distribution-0.0.1/docker-compose/.env -f "$THIS_DIR"/../servermanager-distribution/target/servermanager-distribution-0.0.1/docker-compose/docker-compose.yml down "$REMOVE_VOLUMES_ARG"
     fi
   fi
 }
