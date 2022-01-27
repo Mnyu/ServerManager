@@ -12,9 +12,7 @@ server {
     location = /50x.html {
         root  /usr/share/nginx/html;
     }
-    location /api {
-            proxy_pass http://{{ .Env.API_SERVER_HOST }}:{{ .Env.API_SERVER_PORT }}/api/;
+    location /api/ {
+        proxy_pass http://{{ .Env.API_SERVER_HOST }}:{{ .Env.API_SERVER_PORT }}/api/;
     }
-    error_log stderr;
-    access_log /dev/stdout;
 }
