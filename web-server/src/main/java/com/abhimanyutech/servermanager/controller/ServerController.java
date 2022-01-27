@@ -28,7 +28,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/server")
+@RequestMapping("server")
 public class ServerController {
 
     private final ServerService serverService;
@@ -87,7 +87,7 @@ public class ServerController {
     }
 
     @GetMapping("/get/{id}")
-    public ResponseEntity<Response> getServer(@PathVariable("id") long id) {
+    public ResponseEntity<Response> getServer(@PathVariable("id") int id) {
         Server server = serverService.get(id);
         Map<String, Server> map = new HashMap<>();
         map.put("server", server);
@@ -102,7 +102,7 @@ public class ServerController {
     }
 
     @DeleteMapping("/delete/{id}")
-    public ResponseEntity<Response> deleteServer(@PathVariable("id") long id) {
+    public ResponseEntity<Response> deleteServer(@PathVariable("id") int id) {
         boolean isDeleted = serverService.delete(id);
         Map<String, Boolean> map = new HashMap<>();
         map.put("deleted", isDeleted);

@@ -34,7 +34,7 @@ public class ServerServiceImpl implements ServerService {
     }
 
     @Override
-    public Server get(long id) {
+    public Server get(int id) {
         log.info("Fetching server by id: {}", id);
         return serverRepository.findById(id).get();
     }
@@ -46,7 +46,7 @@ public class ServerServiceImpl implements ServerService {
     }
 
     @Override
-    public boolean delete(long id) {
+    public boolean delete(int id) {
         log.info("Deleting server by id: {}", id);
         serverRepository.deleteById(id);
         return true;
