@@ -1,0 +1,70 @@
+version: "3.8"
+services:
+  postgres:
+    hostname: postgres
+    container_name: postgres
+    image: library/postgres:latest
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+      - POSTGRES_DB=${POSTGRES_DB}
+      - TZ=${TIMEZONE}
+    restart: always
+  sm-web-server:
+    hostname: sm-web-server
+    container_name: sm-web-server
+    image: servermanager-web-server:${APP_VERSION}
+    expose:
+      - "8080"
+    environment:
+      - POSTGRES_HOSTNAME=${POSTGRES_HOSTNAME}
+      - POSTGRES_PORT=${POSTGRES_PORT}
+      - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+      - POSTGRES_DB=${POSTGRES_DB}
+      - POSTGRES_SCHEMA=${POSTGRES_SCHEMA}
+      - TZ=${TIMEZONE}
+    depends_on:
+      - postgres
+    restart: always
+  sm-web-ui:
+    hostname: sm-web-ui
+    container_name: sm-web-ui
+    image: servermanager-web-ui:${APP_VERSION}
+    ports:
+      - "4200:4200"
+    environment:
+      - API_SERVER_HOST=sm-web-server
+      - API_SERVER_PORT=8080
+      - TZ=${TIMEZONE}
+    depends_on:
+      - sm-web-server
+    restart: always
+  pgadmin:
+    hostname: pgadmin
+    container_name: pgadmin
+    image: dpage/pgadmin4:5
+    environment:
+      - PGADMIN_DEFAULT_EMAIL=${PGADMIN_DEFAULT_EMAIL}
+      - PGADMIN_DEFAULT_PASSWORD=${PGADMIN_DEFAULT_PASSWORD}
+      - TZ=${TIMEZONE}
+    ports:
+      - "5431:80"
+    restart: always
+    profiles:
+      - management
+  portainer:
+    hostname: portainer
+    container_name: portainer
+    image: portainer/portainer-ce:2.5.0
+    ports:
+      - "8000:8000"
+      - "9000:9000"
+    volumes:
+      - portainer_data:/data
+      - /var/run/docker.sock:/var/run/docker.sock
+    restart: always
+    profiles:
+      - management
