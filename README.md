@@ -1,5 +1,10 @@
 # Getting Started
 
+### Step 0: Prerequiites:
+
+1. Install docker 
+2. Install docker-compose
+
 ### Step 1: Clone the repository and build:
 
 ```shell
