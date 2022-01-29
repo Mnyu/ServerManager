@@ -1,6 +1,6 @@
 # Getting Started
 
-### Step 0: Prerequiites:
+### Step 0: Prerequisites:
 
 1. Install docker 
 2. Install docker-compose
