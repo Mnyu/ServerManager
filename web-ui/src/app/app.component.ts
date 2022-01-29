@@ -17,6 +17,8 @@ import {NotificationService} from "./service/notification.service";
 })
 export class AppComponent implements OnInit {
 
+  readonly imageUrl = window.location.protocol + '//' + window.location.host + '/api/server/image/server.png';
+
   appState$: Observable<AppState<CustomResponse>>;
   readonly DataState = DataState;
   readonly Status = Status;
@@ -85,7 +87,9 @@ export class AppComponent implements OnInit {
 
   saveServer(serverForm: NgForm): void {
     this.isLoading.next(true);
-    this.appState$ = this.serverService.save$(<Server>serverForm.value)
+    let newServer = <Server>serverForm.value;
+    newServer.imageUrl = this.imageUrl;
+    this.appState$ = this.serverService.save$(newServer)
       .pipe(
         map(response => {
           this.dataSubject.next({...response, data:{ servers: [...this.dataSubject.value.data.servers, response.data.server] }});
