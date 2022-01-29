@@ -18,7 +18,7 @@ mvn clean install -Pfe -DskipTests
 bin/docker-build-all.sh
 ```
 
-### Step 3: Start application:
+### Step 3: Start the application:
 Run with Docker Compose
 ```shell
 bin/docker-compose-run.sh
@@ -32,7 +32,7 @@ Sample screenshot:
 ![Image](https://github.com/Mnyu/ServerManager/blob/main/docs/screenshots/app-screenshot.png)
 
 
-### Step 5: Start application:
+### Step 5: Stop the application:
 Run with Docker Compose
 ```shell
 bin/docker-compose-run.sh down -v
