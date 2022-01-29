@@ -2,8 +2,9 @@
 
 ### Step 0: Prerequisites:
 
-1. Install docker 
-2. Install docker-compose
+1. Install maven
+2. Install docker 
+3. Install docker-compose
 
 ### Step 1: Clone the repository and build:
 
